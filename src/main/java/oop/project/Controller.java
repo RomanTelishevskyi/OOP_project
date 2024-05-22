@@ -7,6 +7,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -21,6 +24,12 @@ public class Controller {
 
     @FXML
     private Button Worm;
+
+    @FXML
+    public GridPane board;
+
+    @FXML
+    public ImageView piece;
 
     private Stage stage;
 
@@ -51,5 +60,8 @@ public class Controller {
     void on_worm(ActionEvent event) throws IOException {
         switchScene(event);
     }
+    @FXML
+    void test(MouseEvent event) {
 
+    }
 }
