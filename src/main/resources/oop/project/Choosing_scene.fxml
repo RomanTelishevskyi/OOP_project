@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.project.Controller">
    <children>
-      <Button fx:id="Jörmungandr" layoutX="153.0" layoutY="288.0" mnemonicParsing="false" onAction="#on_jörmungandr" text="Jörmungandr" />
+      <Button fx:id="Phoenix" layoutX="153.0" layoutY="288.0" mnemonicParsing="false" onAction="#on_phoenix" text="Phoenix" />
       <Button fx:id="Cthulhu" layoutX="374.0" layoutY="288.0" mnemonicParsing="false" onAction="#on_cthulhu" text="Cthulhu" />
       <Button fx:id="Worm" layoutX="557.0" layoutY="288.0" mnemonicParsing="false" onAction="#on_worm" text="Mongolian Death Worm" />
       <Label layoutX="386.0" layoutY="170.0" text="Label" />
