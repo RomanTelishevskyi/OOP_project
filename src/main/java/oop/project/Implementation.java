@@ -1,7 +1,5 @@
 package oop.project;
 
-import javafx.scene.shape.Circle;
-
 import java.awt.*;
 import java.util.ArrayList;
 
