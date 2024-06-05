@@ -5,13 +5,15 @@ import java.util.ArrayList;
 
 public class Implementation {
 
-    public interface Monster{
+    public abstract static class Monster{
 
-        ArrayList<Point> legal_move(Point staring_position);
+        public abstract ArrayList<Point> legal_move(Point staring_position);
 
+        public Monster(Point starting_position, String url){
+        }
     }
 
-    public static class cthulhu extends Controller implements Monster{
+    public static class Cthulhu extends Monster{
 
         @Override
         public ArrayList<Point> legal_move(Point start) {
@@ -30,6 +32,12 @@ public class Implementation {
                 }
             }
             return res;
+        }
+        public Cthulhu(Point starting_position, String url){
+            super(starting_position,url);
+        }
+        public Cthulhu(){
+            super(new Point(7,4),"file:src/main/resources/oop/project/Cthulhu.png");
         }
     }
 }

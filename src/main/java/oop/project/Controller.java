@@ -9,7 +9,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -34,54 +33,54 @@ public class Controller extends Implementation {
     @FXML
     public ImageView piece;
 
-    private Stage stage;
+    public ImageView point;
 
-    private Scene scene;
+    private int mouseX;
 
-    private Parent root;
+    private int mouseY;
 
     public void switchScene(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("Chessboard.fxml"));
-        stage = (Stage) ((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+        Parent root = FXMLLoader.load(getClass().getResource("Chessboard.fxml"));
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
 
-    public void createBoard(){
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 8; x++) {
-                Tile tile = new Tile((x+y)%2==0);
-                board.add(tile,x,y);
-            }
-        }
-    }
-
     public void setDots(ArrayList<Point> legal_moves){
         for (Point legalMove : legal_moves) {
-            //TODO change absolute path
-            Image image = new Image("file:/C:/Users/rvtbd/IdeaProjects/OOP_project/src/main/resources/oop/project/P1.png");
-            ImageView view = new ImageView(image);
-            view.setFitWidth(100);
-            view.setFitHeight(100);
-            view.setOnMousePressed(e ->{
-                int mouseX = (int)(e.getSceneX()/100);
-                int mouseY = (int)(e.getSceneY()/100);
-                piece.relocate(mouseX,mouseY);
-                System.out.println(1234); //TODO find out how to move the piece
-            });
-            board.add(view, (int) legalMove.getX(), (int) legalMove.getY());
-        }
 
+            Image image = new Image("file:src/main/resources/oop/project/P1.png");
+            point = new ImageView(image);
+            point.setFitWidth(100);
+            point.setFitHeight(100);
+            point.setOnMousePressed(e ->{
+                for (Point legal_Move : legal_moves){
+                    deleteDots(legal_Move);
+                }
+                mouseX = (int)(e.getSceneX()/100);
+                mouseY = (int)(e.getSceneY()/100);
+                GridPane.setColumnIndex(piece, mouseX);
+                GridPane.setRowIndex(piece, mouseY);
+            });
+            board.add(point, (int) legalMove.getX(), (int) legalMove.getY());
+        }
+    }
+    private void deleteDots(Point point) {
+        board.getChildren().removeIf(node ->
+                GridPane.getColumnIndex(node) != null && GridPane.getColumnIndex(node) == point.getX() &&
+                        GridPane.getRowIndex(node) != null && GridPane.getRowIndex(node) == point.getY()
+        );
     }
 
+    //TODO from here on out
+
     public void createImage(){
-        //TODO
-        Image image = new Image("file:/C:/Users/rvtbd/IdeaProjects/OOP_project/src/main/resources/oop/project/Cthulhu.png");
+        Image image = new Image("file:src/main/resources/oop/project/Cthulhu.png");
         piece = new ImageView(image);
         piece.setFitWidth(100);
         piece.setFitHeight(100);
-        board.add(piece,4,4);
+        board.add(piece,0,0);
     }
 
 
@@ -100,15 +99,13 @@ public class Controller extends Implementation {
         switchScene(event);
     }
     @FXML
-    void test(MouseEvent event) {
-        createBoard();
+    void test() {
         createImage();
+        Monster ct = new Cthulhu();
         piece.setOnMousePressed(e->{
             System.out.println(1);
-            Monster ct = new cthulhu();
-            Point point = new Point(4,4);
-            setDots(ct.legal_move(point));
-
+            Point piece_position = new Point(GridPane.getColumnIndex(piece),GridPane.getRowIndex(piece));
+            setDots(ct.legal_move(piece_position));
         });
     }
 
